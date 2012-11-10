@@ -1,1 +1,77 @@
-(function(){var e=xtag.prefix.js+"Transform",t=function(e){var t=xtag.query(e,'x-slides > x-slide[selected="true"]')[0]||0;return[t?xtag.query(e,"x-slides > x-slide").indexOf(t):t,e.firstElementChild.children.length-1]},n=function(t,n){var r=xtag.toArray(t.firstElementChild.children);r.forEach(function(e){e.removeAttribute("selected")}),r[n||0].setAttribute("selected",!0),t.firstElementChild.style[e]="translate"+(t.getAttribute("data-orientation")||"x")+"("+(n||0)*(-100/r.length)+"%)"},r=function(t){var r=this.firstElementChild;if(!r||!r.children.length||r.tagName.toLowerCase()!="x-slides")return;var i=xtag.toArray(r.children),s=100/(i.length||1),o=this.getAttribute("data-orientation")||"x",u=o=="x"?["width","height"]:["height","width"];xtag.skipTransition(r,function(){r.style[u[1]]="100%",r.style[u[0]]=i.length*100+"%",r.style[e]="translate"+o+"(0%)",i.forEach(function(e){e.style[u[0]]=s+"%",e.style[u[1]]="100%"})});if(t){var a=r.querySelector('[selected="true"]');a&&n(this,i.indexOf(a)||0)}};xtag.register("x-slidebox",{onInsert:r,events:{transitionend:function(e){e.target==this&&xtag.fireEvent(this,"slideend")}},setters:{"data-orientation":function(e){this.setAttribute("data-orientation",e.toLowerCase()),r.call(this,!0)}},methods:{slideTo:function(e){n(this,e)},slideNext:function(){var e=t(this);e[0]++,n(this,e[0]>e[1]?0:e[0])},slidePrevious:function(){var e=t(this);e[0]--,n(this,e[0]<0?e[1]:e[0])}}}),xtag.register("x-slide",{onInsert:function(){var e=this.parentNode.parentNode;e.tagName.toLowerCase()=="x-slidebox"&&r.call(e,!0)}})})()
+
+(function(){
+
+	var transform = xtag.prefix.js + 'Transform',
+		getState = function(el){
+			var selected = xtag.query(el, 'x-slides > x-slide[selected="true"]')[0] || 0;
+			return [selected ? xtag.query(el, 'x-slides > x-slide').indexOf(selected) : selected, el.firstElementChild.children.length - 1];
+		},
+		slide = function(el, index){
+			var slides = xtag.toArray(el.firstElementChild.children);
+			slides.forEach(function(slide){ slide.removeAttribute('selected'); });
+			slides[index || 0].setAttribute('selected', true);
+			el.firstElementChild.style[transform] = 'translate'+ (el.getAttribute('data-orientation') || 'x') + '(' + (index || 0) * (-100 / slides.length) + '%)';
+		},
+		init = function(toSelected){
+			var slides = this.firstElementChild;
+			if (!slides || !slides.children.length || slides.tagName.toLowerCase() != 'x-slides') return;
+			
+			var	children = xtag.toArray(slides.children),
+				size = 100 / (children.length || 1),
+				orient = this.getAttribute('data-orientation') || 'x',
+				style = orient == 'x' ? ['width', 'height'] : ['height', 'width'];
+			
+			xtag.skipTransition(slides, function(){
+				slides.style[style[1]] =  '100%';
+				slides.style[style[0]] = children.length * 100 + '%';
+				slides.style[transform] = 'translate' + orient + '(0%)';
+				children.forEach(function(slide){				
+					slide.style[style[0]] = size + '%';
+					slide.style[style[1]] = '100%';
+				});
+			});
+			
+			if (toSelected) {
+				var selected = slides.querySelector('[selected="true"]');
+				if (selected) slide(this, children.indexOf(selected) || 0);
+			}
+		};
+
+	xtag.register('x-slidebox', {
+		onInsert: init,		
+		events:{
+			'transitionend': function(e){
+				if (e.target == this) xtag.fireEvent(this, 'slideend');
+			}
+		},
+		setters: {
+			'data-orientation': function(value){
+				this.setAttribute('data-orientation', value.toLowerCase());
+				init.call(this, true);
+			},
+		},
+		methods: {
+			slideTo: function(index){
+				slide(this, index);
+			},
+			slideNext: function(){
+				var shift = getState(this);
+					shift[0]++;
+				slide(this, shift[0] > shift[1] ? 0 : shift[0]);
+			},
+			slidePrevious: function(){
+				var shift = getState(this);
+					shift[0]--;
+				slide(this, shift[0] < 0 ? shift[1] : shift[0]);
+			}
+		}
+	});
+	
+	xtag.register('x-slide', {
+		onInsert: function(){
+			var ancestor = this.parentNode.parentNode;
+			if (ancestor.tagName.toLowerCase() == 'x-slidebox') init.call(ancestor, true);
+		}
+	});
+	
+})();

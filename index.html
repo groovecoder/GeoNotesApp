@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
 
-    <title></title>
+    <title>GeoNotes</title>
     <meta name="description" content="">
-
-    <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta name="viewport" content="width=device-width">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
@@ -44,37 +42,13 @@
       Home Screen"
     </div>
 
+    <h1>GeoNote</h1>
+
     <section id="note-list">
-      <ul>
-        <li>
-          <span class="text">garage: 1199</span>
-          <span class="meta">
-            <span class="badge distance">97 ft</span>
-            <i class="icon-chevron-right"></i>
-          </span>
-        </li>
-
-        <li>
-          <span class="text">buy airlock</span>
-          <span class="meta">
-            <span class="badge distance">1.4 mi</span>
-            <i class="icon-chevron-right"></i>
-          </span>
-        </li>
-
-        <li>
-          <span class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
-          <span class="meta">
-            <span class="badge distance">1.4 mi</span>
-            <i class="icon-chevron-right"></i>
-          </span>
-        </li>
-
-        <li id="add-note">
-          <a href="#"><i class="icon-plus-sign"></i>Add Note</a>
-        </li>
-      </ul>
+      <ul></ul>
+      <a id="add-note" href="#"><i class="icon-plus-sign"></i>Add Note</a>
     </section>
+
     <!-- Put this install button somewhere on the page and the user
          will be able to click it to install your app. You don't need 
          this if your app will be installed from a marketplace. -->
@@ -84,8 +58,15 @@
 
     <!-- Add your site or application content here -->
 
-
-
+<script id="note-list-template" type="text/template">
+  <li>
+    <span class="text"><%= position.lat %>,<%= position.lng %>: <%= text %></span>
+    <span class="meta">
+      <span class="badge distance">9.7m</span>
+      <i class="icon-chevron-right"></i>
+    </span>
+  </li>
+</script>
 
 
 
