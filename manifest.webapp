@@ -1,7 +1,7 @@
 {
   "version": "0.1",
-  "name": "My App",
-  "description": "Your new awesome Open Web App",
+  "name": "GeoNotes",
+  "description": "Put your notes in their place.",
   "launch_path": "/",
   "icons": {
     "16": "/img/icons/mortar-16.png",
@@ -9,12 +9,13 @@
     "128": "/img/icons/mortar-128.png"
   },
   "developer": {
-    "name": "Your Name",
-    "url": "http://yourawesomeapp.com"
+    "name": "Luke Crouch",
+    "url": "http://groovecoder.github.com/GeoNotesApp"
   },
   "installs_allowed_from": ["*"],
   "appcache_path": "/cache.manifest",
   "locales": {
+  /*
     "es": {
       "description": "Su nueva aplicación impresionante Open Web",
       "developer": {
@@ -27,6 +28,7 @@
         "url": "http://yourawesomeapp.com"
       }
     }
+  */
   },
   "default_locale": "en"
 }
