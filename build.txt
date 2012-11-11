@@ -69,6 +69,7 @@ js/lib/jquery.min.js
 js/lib/backbone.js
 js/lib/install.js
 js/lib/localstorage.js
+js/Geo.js
 js/Note.js
 js/app.js
 js/main.js
@@ -80,6 +81,7 @@ js/lib/jquery.min.js
 js/lib/backbone.js
 js/lib/install.js
 js/lib/localstorage.js
+js/Geo.js
 js/Note.js
 js/app.js
 js/main.js
